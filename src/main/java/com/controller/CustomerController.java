@@ -32,7 +32,7 @@ public class CustomerController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
-        customerService.add(customer);
+        customerService.addCustomer(customer);
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
