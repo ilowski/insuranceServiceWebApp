@@ -36,6 +36,11 @@ public class CustomerServiceImpl implements CustomerService {
             }
         }
         return null;
+    }
 
+    @Override
+    public void addCustomer(Customer customer) {
+        customer.setId(COUNTER++);
+        listCustomers.add(customer);
     }
 }
