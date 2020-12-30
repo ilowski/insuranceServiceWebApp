@@ -1,10 +1,14 @@
 package com.entity;
 
+import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Customer {
     private Long id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String secondName;
 
     public Customer() {
@@ -43,6 +47,8 @@ public class Customer {
     }
 
     public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getFirstName() {
         return firstName;
