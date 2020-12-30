@@ -2,31 +2,39 @@ package com.controller;
 
 import com.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.service.CustomerService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
-    
-    private final Customer DEFAULT_CUSTOMER = new Customer(0l,"Default","Customer");
+
+    private final Customer DEFAULT_CUSTOMER = new Customer(0l,"Not found","Not found");
 
     @Autowired
     private CustomerService customerService;
 
     @GetMapping
-    public List<Customer> findAllCustomers() {
-        return customerService.findAllCustomers();
+    public ResponseEntity<?> findAllCustomers() {
+        return new ResponseEntity<List<Customer>>(customerService.findAllCustomers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Customer findCustomerById(@PathVariable Long id) {
-        return Optional.ofNullable(customerService.findById(id)).orElse(DEFAULT_CUSTOMER);
+    public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
+        return new ResponseEntity<Customer>(Optional.ofNullable(customerService.findById(id)).orElse(DEFAULT_CUSTOMER), HttpStatus.OK);
     }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
+        customerService.add(customer);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
 }
