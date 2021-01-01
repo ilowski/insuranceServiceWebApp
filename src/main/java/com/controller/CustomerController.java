@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private final Customer DEFAULT_CUSTOMER = new Customer(0l,"Not found","Not found");
+    private final Customer DEFAULT_CUSTOMER = new Customer(0l, "Not found", "Not found");
 
     @Autowired
     private CustomerService customerService;
@@ -35,6 +35,23 @@ public class CustomerController {
         customerService.addCustomer(customer);
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<?> removeCustomer(@PathVariable Long id) {
+        if (customerService.removeCustomer(id)) {
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCustomer(@Valid @RequestBody Customer customer) {
+        if (customerService.updateCustomer(customer)) {
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
 
 }
