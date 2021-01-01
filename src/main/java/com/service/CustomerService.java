@@ -10,4 +10,6 @@ public interface CustomerService {
     public List<Customer> findAllCustomers();
     public Customer findById(Long id);
     public void addCustomer (Customer customer);
+    public Boolean removeCustomer (Long id);
+    public Boolean updateCustomer (Customer customer);
 }
