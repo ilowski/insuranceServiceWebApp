@@ -43,4 +43,27 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setId(COUNTER++);
         listCustomers.add(customer);
     }
+
+    @Override
+    public Boolean removeCustomer(Long id) {
+        for (Customer x : listCustomers) {
+            if (x.getId() == id) {
+                listCustomers.remove(id);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean updateCustomer(Customer customer) {
+        for (Customer x : listCustomers) {
+            if (x.getId() == customer.getId()) {
+                x.setFirstName(customer.getFirstName());
+                x.setSecondName(customer.getSecondName());
+                return true;
+            }
+        }
+        return false;
+    }
 }
