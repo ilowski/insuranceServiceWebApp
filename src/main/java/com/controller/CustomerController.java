@@ -2,6 +2,8 @@ package com.controller;
 
 import com.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +23,17 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
-    public ResponseEntity<?> findAllCustomers() {
-        return new ResponseEntity<List<Customer>>(customerService.findAllCustomers(), HttpStatus.OK);
+    public ResponseEntity<?> findAllCustomers(Pageable pageable) {
+        return new ResponseEntity<Page<Customer>>(customerService.findAllCustomers(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
-        return new ResponseEntity<Customer>(Optional.ofNullable(customerService.findById(id)).orElse(DEFAULT_CUSTOMER), HttpStatus.OK);
+        Optional<Customer> customerOptional = customerService.findById(id);
+        if (customerOptional.isPresent()) {
+            return new ResponseEntity<Customer>(customerOptional.get(),HttpStatus.OK);
+        }
+       return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/add")
@@ -55,3 +61,54 @@ public class CustomerController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
