@@ -23,7 +23,12 @@ public class Customer {
     private String secondName;
 
     public Customer() {
-        super();
+
+    }
+
+    public Customer(String firstName, String secondName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
     }
 
     @Override
