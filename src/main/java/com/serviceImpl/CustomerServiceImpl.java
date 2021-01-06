@@ -57,4 +57,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return false;
     }
+
+    @Override
+    public List<Customer> findByCriteria(String criteria, String searchItem) {
+        switch(criteria) {
+            case "firstname" : return customerRepository.findByFirstName(searchItem);
+            case "secondname" : return customerRepository.findBySecondName(searchItem);
+        }
+        return new ArrayList<>();
+    }
 }
