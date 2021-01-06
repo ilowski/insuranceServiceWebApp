@@ -15,6 +15,8 @@ public interface CustomerService {
 
     public void addCustomer(Customer customer);
 
+    public List<Customer> findByCriteria (String criteria, String searchItem);
+
     public Boolean removeCustomer(Long id);
 
     public Boolean updateCustomer(Customer customer);
