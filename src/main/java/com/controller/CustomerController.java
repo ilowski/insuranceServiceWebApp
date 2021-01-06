@@ -27,13 +27,19 @@ public class CustomerController {
         return new ResponseEntity<Page<Customer>>(customerService.findAllCustomers(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> findByCriteria(@RequestParam(name = "criteria", required = true) String criteria,
+                                            @RequestParam(name = "searchItem", required = true) String searchItem) {
+        return new ResponseEntity<List<Customer>>(customerService.findByCriteria(criteria, searchItem),HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
         Optional<Customer> customerOptional = customerService.findById(id);
         if (customerOptional.isPresent()) {
-            return new ResponseEntity<Customer>(customerOptional.get(),HttpStatus.OK);
+            return new ResponseEntity<Customer>(customerOptional.get(), HttpStatus.OK);
         }
-       return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/add")
