@@ -2,6 +2,7 @@ package com.serviceImpl;
 
 import com.entity.Customer;
 import com.repository.CustomerRepository;
+import com.validator.CustomerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private CustomerValidator customerValidator;
+
     @Override
     public Page<Customer> findAllCustomers(Pageable pageable) {
 
@@ -30,8 +34,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void addCustomer(Customer customer) {
-        customerRepository.save(customer);
+    public void addCustomer(Customer customer) throws Exception {
+
+        if (customerValidator.isCustomerValid(customer)) {
+            customerRepository.save(customer);
+        } else {
+            throw new Exception();
+        }
     }
 
     @Override
@@ -60,9 +69,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findByCriteria(String criteria, String searchItem) {
-        switch(criteria) {
-            case "firstname" : return customerRepository.findByFirstName(searchItem);
-            case "secondname" : return customerRepository.findBySecondName(searchItem);
+        switch (criteria) {
+            case "firstName":
+                return customerRepository.findByFirstName(searchItem);
+            case "secondName":
+                return customerRepository.findBySecondName(searchItem);
+            case "pesel":
+                return customerRepository.findByPesel(searchItem);
         }
         return new ArrayList<>();
     }
