@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name="policies")
+@Table(name = "policies")
 public class Policy {
     @Id
     private String numberOfPolicy;
@@ -19,11 +19,10 @@ public class Policy {
     private Long customerId;
 
 
-
     public Policy() {
     }
 
-    public Policy (String numberOfPolicy, String typeOfPolicy, String insuranceCompany, Date dateOfStartPolicy, Date dateOfEndPolicy, Long customerId) {
+    public Policy(String numberOfPolicy, String typeOfPolicy, String insuranceCompany, Date dateOfStartPolicy, Date dateOfEndPolicy, Long customerId) {
         this.numberOfPolicy = numberOfPolicy;
         this.typeOfPolicy = typeOfPolicy;
         this.insuranceCompany = insuranceCompany;
