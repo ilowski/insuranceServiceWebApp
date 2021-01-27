@@ -26,19 +26,20 @@ public class PolicyController {
     public ResponseEntity<?> findAllPolicies(Pageable pageable) {
         return new ResponseEntity<Page<Policy>>(policyService.findAllPolicies(pageable), HttpStatus.OK);
     }
+
     @GetMapping("/search")
     public ResponseEntity<?> findByCriteria(@RequestParam(name = "criteria", required = true) String criteria,
                                             @RequestParam(name = "searchItem", required = true) String searchItem) {
-        return new ResponseEntity<List<Policy>>(policyService.findByCriteria(criteria, searchItem),HttpStatus.OK);
+        return new ResponseEntity<List<Policy>>(policyService.findByCriteria(criteria, searchItem), HttpStatus.OK);
     }
 
 
     @PostMapping("/add")
     public ResponseEntity<?> addPolicy(@RequestBody Policy policy) {
-        try{
-      policyService.addPolicy(policy);
-        return new ResponseEntity<Void>(HttpStatus.CREATED); }
-        catch (Exception e) {
+        try {
+            policyService.addPolicy(policy);
+            return new ResponseEntity<Void>(HttpStatus.CREATED);
+        } catch (Exception e) {
             return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -47,7 +48,7 @@ public class PolicyController {
     public ResponseEntity<?> findByNumberOfPolicy(@PathVariable String numberOfPolicy) {
         Optional<Policy> policyOptional = policyService.findByNumberOfPolicy(numberOfPolicy);
         if (policyOptional.isPresent()) {
-            return new ResponseEntity<Policy>(policyOptional.get(),HttpStatus.OK);
+            return new ResponseEntity<>(policyOptional.get(), HttpStatus.OK);
         }
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
@@ -60,7 +61,6 @@ public class PolicyController {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
-
 
 
     @PutMapping("/update")
