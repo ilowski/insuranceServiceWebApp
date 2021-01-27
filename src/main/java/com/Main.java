@@ -10,6 +10,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
+
 //starting app
 @SpringBootApplication
 public class Main {
@@ -19,13 +20,13 @@ public class Main {
     }
 
     @Bean
-    public FilterRegistrationBean<CorsFilter> simpleCorsFiler(){
+    public FilterRegistrationBean<CorsFilter> simpleCorsFiler() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedMethods(Collections.singletonList("*"));
         config.setAllowedOrigins(Collections.singletonList("*"));
         config.setAllowedHeaders(Collections.singletonList("*"));
-        source.registerCorsConfiguration("/**",config);
+        source.registerCorsConfiguration("/**", config);
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
