@@ -18,7 +18,7 @@ public class CustomerValidator {
 
     public boolean isPeselUnique(String pesel) {
         for (Customer x : customerRepository.findAll()) {
-            if (x.getPesel().equals(pesel) ) {
+            if (x.getPesel().equals(pesel)) {
                 return false;
             }
         }
@@ -29,15 +29,18 @@ public class CustomerValidator {
         return isPeselValid(customer.getPesel()) && firstNameIsNotNull(customer.getFirstName()) && secondNameIsNotNull(customer.getSecondName());
     }
 
-    public boolean firstNameIsNotNull(String firstName) {return firstName != null && !firstName.isEmpty();}
-    public boolean secondNameIsNotNull(String secondName) {return secondName != null && !secondName.isEmpty();}
+    public boolean firstNameIsNotNull(String firstName) {
+        return firstName != null && !firstName.isEmpty();
+    }
+
+    public boolean secondNameIsNotNull(String secondName) {
+        return secondName != null && !secondName.isEmpty();
+    }
 
 
     public boolean isPeselValid(String pesel) {
         return pesel.length() == PESEL_LENGTH && isPeselUnique(pesel);
     }
-
-
 
 
 }

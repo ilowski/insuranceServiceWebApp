@@ -18,7 +18,7 @@ public interface PolicyService {
 
     public void addPolicy(Policy policy) throws Exception;
 
-    public List<Policy> findByCriteria (String criteria, String searchItem);
+    public List<Policy> findByCriteria(String criteria, String searchItem);
 
     public Boolean removePolicy(String numberOfPolicy);
 

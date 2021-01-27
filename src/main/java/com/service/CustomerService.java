@@ -15,7 +15,7 @@ public interface CustomerService {
 
     public void addCustomer(Customer customer) throws Exception;
 
-    public List<Customer> findByCriteria (String criteria, String searchItem);
+    public List<Customer> findByCriteria(String criteria, String searchItem);
 
     public Boolean removeCustomer(Long id);
 
