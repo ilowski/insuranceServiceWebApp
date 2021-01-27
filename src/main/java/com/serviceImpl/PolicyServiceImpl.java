@@ -29,7 +29,6 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
 
-
     @Override
     public void addPolicy(Policy policy) throws Exception {
 
@@ -42,12 +41,17 @@ public class PolicyServiceImpl implements PolicyService {
 
     @Override
     public List<Policy> findByCriteria(String criteria, String searchItem) {
-        switch(criteria) {
-            case "insuranceCompany" : return policyRepository.findByInsuranceCompany(searchItem);
-            case "typeOfPolicy" : return policyRepository.findByTypeOfPolicy(searchItem);
-            case "customerId" : return policyRepository.findByCustomerId(Long.parseLong(searchItem));
-            case "dateOfStartPolicy" : return policyRepository.findByDateOfStartPolicy(Date.valueOf(searchItem));
-            case "dateOfEndPolicy" : return policyRepository.findByDateOfEndPolicy(Date.valueOf(searchItem));
+        switch (criteria) {
+            case "insuranceCompany":
+                return policyRepository.findByInsuranceCompany(searchItem);
+            case "typeOfPolicy":
+                return policyRepository.findByTypeOfPolicy(searchItem);
+            case "customerId":
+                return policyRepository.findByCustomerId(Long.parseLong(searchItem));
+            case "dateOfStartPolicy":
+                return policyRepository.findByDateOfStartPolicy(Date.valueOf(searchItem));
+            case "dateOfEndPolicy":
+                return policyRepository.findByDateOfEndPolicy(Date.valueOf(searchItem));
         }
         return new ArrayList<>();
     }
