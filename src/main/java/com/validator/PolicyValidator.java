@@ -23,19 +23,36 @@ public class PolicyValidator {
 
     public boolean isNumberOfPolicyUnique(String numberOfPolicy) {
         for (Policy x : policyRepository.findAll()) {
-            if (x.getNumberOfPolicy().equals(numberOfPolicy) ) {
+            if (x.getNumberOfPolicy().equals(numberOfPolicy)) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean dateOfStartPolicyIsNotNull(Date dateOfStartPolicy) { return dateOfStartPolicy != null; }
-    public boolean dateOfEndPolicyIsNotNull(Date dateOfEndPolicy) { return dateOfEndPolicy != null;}
-    public boolean typeOfPolicyIsNotNull (String typeOfPolicy) {return typeOfPolicy != null && !typeOfPolicy.isEmpty();}
-    public boolean numberOfPolicyIsNotNull (String numberOfPolicy) {return numberOfPolicy != null && !numberOfPolicy.isEmpty();}
-    public boolean insuranceCompanyIsNotNull(String insuranceCompany) { return insuranceCompany != null && !insuranceCompany.isEmpty();}
-    public boolean customerIdIsNotNull (Long customerId) {return customerId != null;}
+    public boolean dateOfStartPolicyIsNotNull(Date dateOfStartPolicy) {
+        return dateOfStartPolicy != null;
+    }
+
+    public boolean dateOfEndPolicyIsNotNull(Date dateOfEndPolicy) {
+        return dateOfEndPolicy != null;
+    }
+
+    public boolean typeOfPolicyIsNotNull(String typeOfPolicy) {
+        return typeOfPolicy != null && !typeOfPolicy.isEmpty();
+    }
+
+    public boolean numberOfPolicyIsNotNull(String numberOfPolicy) {
+        return numberOfPolicy != null && !numberOfPolicy.isEmpty();
+    }
+
+    public boolean insuranceCompanyIsNotNull(String insuranceCompany) {
+        return insuranceCompany != null && !insuranceCompany.isEmpty();
+    }
+
+    public boolean customerIdIsNotNull(Long customerId) {
+        return customerId != null;
+    }
 
 
 }
