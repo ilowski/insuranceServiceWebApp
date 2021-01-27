@@ -1,11 +1,15 @@
 package com.controller;
 
 import com.entity.Customer;
+import com.validator.CustomerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.service.CustomerService;
 
@@ -18,10 +22,12 @@ import java.util.Optional;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private final Customer DEFAULT_CUSTOMER = new Customer(0L, "Not found", "Not found");
 
     @Autowired
     private CustomerService customerService;
+
+    private CustomerValidator customerValidator;
+
 
     @GetMapping
     public ResponseEntity<?> findAllCustomers(Pageable pageable) {
@@ -31,8 +37,9 @@ public class CustomerController {
     @GetMapping("/search")
     public ResponseEntity<?> findByCriteria(@RequestParam(name = "criteria", required = true) String criteria,
                                             @RequestParam(name = "searchItem", required = true) String searchItem) {
-        return new ResponseEntity<List<Customer>>(customerService.findByCriteria(criteria, searchItem),HttpStatus.OK);
+        return new ResponseEntity<List<Customer>>(customerService.findByCriteria(criteria, searchItem), HttpStatus.OK);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
@@ -44,10 +51,18 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
-        customerService.addCustomer(customer);
+    public ResponseEntity<?> addCustomer(@RequestBody Customer customer) {
 
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+        try {
+            customerService.addCustomer(customer);
+
+            return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
     }
 
     @DeleteMapping("/remove/{id}")
