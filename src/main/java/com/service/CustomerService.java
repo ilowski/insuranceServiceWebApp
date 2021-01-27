@@ -13,7 +13,7 @@ public interface CustomerService {
 
     public Optional<Customer> findById(Long id);
 
-    public void addCustomer(Customer customer);
+    public void addCustomer(Customer customer) throws Exception;
 
     public List<Customer> findByCriteria (String criteria, String searchItem);
 
