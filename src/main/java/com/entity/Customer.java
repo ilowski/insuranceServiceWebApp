@@ -1,12 +1,8 @@
 package com.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -17,18 +13,18 @@ public class Customer {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
-    @NotNull
     private String firstName;
-    @NotNull
     private String secondName;
+    private String pesel;
 
     public Customer() {
 
     }
 
-    public Customer(String firstName, String secondName) {
+    public Customer(String firstName, String secondName, String pesel) {
         this.firstName = firstName;
         this.secondName = secondName;
+        this.pesel = pesel;
     }
 
     @Override
@@ -37,7 +33,18 @@ public class Customer {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
+                ", pesel=" + pesel +
                 '}';
+    }
+
+
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
     }
 
     @Override
@@ -55,11 +62,12 @@ public class Customer {
         return Objects.hash(id, firstName, secondName);
     }
 
-    public Customer(Long id, String firstName, String secondName) {
+    public Customer(Long id, String firstName, String secondName, String pesel) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
         this.id = id;
+        this.pesel = pesel;
     }
 
     public Long getId() {
