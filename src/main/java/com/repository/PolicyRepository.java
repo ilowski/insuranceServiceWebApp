@@ -12,9 +12,14 @@ import java.util.Optional;
 @Repository
 public interface PolicyRepository extends JpaRepository<Policy, Long> {
     public Optional<Policy> findByNumberOfPolicy(String numberOfPolicy);
+
     public List<Policy> findByInsuranceCompany(String insuranceCompany);
-    public List<Policy> findByCustomerId (Long customerId);
-    public List<Policy> findByTypeOfPolicy (String typeOfPolicy);
-    public List<Policy> findByDateOfStartPolicy (Date dateOfStartPolicy);
-    public List<Policy> findByDateOfEndPolicy (Date dateOfEndPolicy);
+
+    public List<Policy> findByCustomerId(Long customerId);
+
+    public List<Policy> findByTypeOfPolicy(String typeOfPolicy);
+
+    public List<Policy> findByDateOfStartPolicy(Date dateOfStartPolicy);
+
+    public List<Policy> findByDateOfEndPolicy(Date dateOfEndPolicy);
 }
