@@ -38,7 +38,6 @@ public class Customer {
     }
 
 
-
     public String getPesel() {
         return pesel;
     }
