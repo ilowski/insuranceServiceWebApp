@@ -14,15 +14,15 @@ public class Policy {
     private String numberOfPolicy;
     private String typeOfPolicy;
     private String insuranceCompany;
-    private Date dateOfStartPolicy;
-    private Date dateOfEndPolicy;
+    private java.sql.Date dateOfStartPolicy;
+    private java.sql.Date dateOfEndPolicy;
     private Long customerId;
 
 
     public Policy() {
     }
 
-    public Policy(String numberOfPolicy, String typeOfPolicy, String insuranceCompany, Date dateOfStartPolicy, Date dateOfEndPolicy, Long customerId) {
+    public Policy(String numberOfPolicy, String typeOfPolicy, String insuranceCompany, java.sql.Date dateOfStartPolicy, java.sql.Date dateOfEndPolicy, Long customerId) {
         this.numberOfPolicy = numberOfPolicy;
         this.typeOfPolicy = typeOfPolicy;
         this.insuranceCompany = insuranceCompany;
@@ -76,19 +76,19 @@ public class Policy {
         this.insuranceCompany = insuranceCompany;
     }
 
-    public Date getDateOfStartPolicy() {
+    public java.sql.Date getDateOfStartPolicy() {
         return dateOfStartPolicy;
     }
 
-    public void setDateOfStartPolicy(Date dateOfStartPolicy) {
+    public void setDateOfStartPolicy(java.sql.Date dateOfStartPolicy) {
         this.dateOfStartPolicy = dateOfStartPolicy;
     }
 
-    public Date getDateOfEndPolicy() {
+    public java.sql.Date getDateOfEndPolicy() {
         return dateOfEndPolicy;
     }
 
-    public void setDateOfEndPolicy(Date dateOfEndPolicy) {
+    public void setDateOfEndPolicy(java.sql.Date dateOfEndPolicy) {
         this.dateOfEndPolicy = dateOfEndPolicy;
     }
 }
