@@ -23,9 +23,8 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerValidator customerValidator;
 
     @Override
-    public Page<Customer> findAllCustomers(Pageable pageable) {
-
-        return customerRepository.findAll(pageable);
+    public List<Customer> findAllCustomers() {
+        return customerRepository.findAll();
     }
 
     @Override
