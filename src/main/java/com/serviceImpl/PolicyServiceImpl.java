@@ -11,8 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -22,6 +25,8 @@ public class PolicyServiceImpl implements PolicyService {
     private PolicyRepository policyRepository;
     @Autowired
     PolicyValidator policyValidator;
+
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     @Override
     public Page<Policy> findAllPolicies(Pageable pageable) {
@@ -40,7 +45,7 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public List<Policy> findByCriteria(String criteria, String searchItem) {
+    public List<Policy> findByCriteria(String criteria, String searchItem) throws ParseException {
         switch (criteria) {
             case "insuranceCompany":
                 return policyRepository.findByInsuranceCompany(searchItem);
@@ -49,7 +54,7 @@ public class PolicyServiceImpl implements PolicyService {
             case "customerId":
                 return policyRepository.findByCustomerId(Long.parseLong(searchItem));
             case "dateOfStartPolicy":
-                return policyRepository.findByDateOfStartPolicy(Date.valueOf(searchItem));
+                return policyRepository.findByDateOfStartPolicy(formatter.parse(searchItem));
             case "dateOfEndPolicy":
                 return policyRepository.findByDateOfEndPolicy(Date.valueOf(searchItem));
         }
