@@ -37,9 +37,13 @@ public class CustomerValidator {
         return secondName != null && !secondName.isEmpty();
     }
 
+    public boolean isPeselCorrect(String pesel) {
+        return pesel.matches("\\d{11}");
+    }
+
 
     public boolean isPeselValid(String pesel) {
-        return pesel.length() == PESEL_LENGTH && isPeselUnique(pesel);
+        return  isPeselUnique(pesel) && isPeselCorrect(pesel);
     }
 
 
