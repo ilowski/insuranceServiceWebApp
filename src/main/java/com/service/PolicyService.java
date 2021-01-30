@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface PolicyService {
 
-    public Page<Policy> findAllPolicies(Pageable pageable);
+    List<Policy> findAll();
 
 
     public Optional<Policy> findByNumberOfPolicy(String numberOfPolicy);
@@ -24,5 +24,7 @@ public interface PolicyService {
     public Boolean removePolicy(String numberOfPolicy);
 
     public Boolean updatePolicy(Policy policy);
+
+    public List<Policy> findTwoWeeksPolicies ();
 
 }
