@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,12 @@ public class PolicyController {
     @GetMapping("/search")
     public ResponseEntity<?> findByCriteria(@RequestParam(name = "criteria", required = true) String criteria,
                                             @RequestParam(name = "searchItem", required = true) String searchItem) {
-        return new ResponseEntity<List<Policy>>(policyService.findByCriteria(criteria, searchItem), HttpStatus.OK);
+        try{
+        return new ResponseEntity<List<Policy>>(policyService.findByCriteria(criteria, searchItem), HttpStatus.OK); }
+        catch (ParseException e) {
+            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
     }
 
 
