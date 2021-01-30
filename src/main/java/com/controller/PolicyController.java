@@ -24,8 +24,13 @@ public class PolicyController {
     private PolicyService policyService;
 
     @GetMapping
-    public ResponseEntity<?> findAllPolicies(Pageable pageable) {
-        return new ResponseEntity<Page<Policy>>(policyService.findAllPolicies(pageable), HttpStatus.OK);
+    public ResponseEntity<?> findAllPolicies() {
+        return new ResponseEntity<List<Policy>>(policyService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/searchTwoWeeksPolicies")
+    public ResponseEntity<?> findTwoWeeksPolicies () {
+        return new ResponseEntity<List<Policy>>(policyService.findTwoWeeksPolicies(),HttpStatus.OK);
     }
 
     @GetMapping("/search")
