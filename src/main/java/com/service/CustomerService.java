@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-
-    public Page<Customer> findAllCustomers(Pageable pageable);
+    public List<Customer> findAllCustomers();
 
     public Optional<Customer> findById(Long id);
 

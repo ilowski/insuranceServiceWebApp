@@ -31,7 +31,7 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<?> findAllCustomers() {
-        return new ResponseEntity<List<Customer>>(customerService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<Customer>>(customerService.findAllCustomers(), HttpStatus.OK);
     }
 
     @GetMapping("/search")
