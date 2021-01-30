@@ -29,9 +29,9 @@ public class PolicyServiceImpl implements PolicyService {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     @Override
-    public Page<Policy> findAllPolicies(Pageable pageable) {
-        return policyRepository.findAll(pageable);
+    public List<Policy> findAll() {return policyRepository.findAll();
     }
+
 
 
     @Override
@@ -42,6 +42,11 @@ public class PolicyServiceImpl implements PolicyService {
         } else {
             throw new Exception();
         }
+    }
+
+    @Override
+    public List<Policy> findTwoWeeksPolicies() {
+        return policyRepository.findTwoWeeksPolicies();
     }
 
     @Override
@@ -56,7 +61,7 @@ public class PolicyServiceImpl implements PolicyService {
             case "dateOfStartPolicy":
                 return policyRepository.findByDateOfStartPolicy(formatter.parse(searchItem));
             case "dateOfEndPolicy":
-                return policyRepository.findByDateOfEndPolicy(Date.valueOf(searchItem));
+                return policyRepository.findByDateOfEndPolicy(formatter.parse(searchItem));
         }
         return new ArrayList<>();
     }
