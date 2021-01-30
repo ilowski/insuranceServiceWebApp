@@ -30,8 +30,8 @@ public class CustomerController {
 
 
     @GetMapping
-    public ResponseEntity<?> findAllCustomers(Pageable pageable) {
-        return new ResponseEntity<Page<Customer>>(customerService.findAllCustomers(pageable), HttpStatus.OK);
+    public ResponseEntity<?> findAllCustomers() {
+        return new ResponseEntity<List<Customer>>(customerService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/search")
