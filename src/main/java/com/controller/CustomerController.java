@@ -1,7 +1,10 @@
 package com.controller;
 
 import com.entity.Customer;
+import com.entity.dto.CustomerFullInfoForProfileDto;
+import com.entity.dto.PolicyForProfileDto;
 import com.validator.CustomerValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,7 @@ import com.service.CustomerService;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -27,6 +31,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     private CustomerValidator customerValidator;
+    @Autowired
+    ModelMapper modelMapper;
 
 
     @GetMapping
@@ -40,18 +46,27 @@ public class CustomerController {
         return new ResponseEntity<List<Customer>>(customerService.findByCriteria(criteria, searchItem), HttpStatus.OK);
     }
 
+    @GetMapping("/profile/{pesel}")
+    public ResponseEntity<?> getProfileCustomer(@PathVariable String pesel) {
+        Customer customer = customerService.findByPesel(pesel);
+        PolicyForProfileDto policyForProfileDto = customerService.findPoliciesOfCustomer(pesel);
+        CustomerFullInfoForProfileDto customerFull = new CustomerFullInfoForProfileDto(customer.getId(),customer.getFirstName(),customer.getSecondName(),customer.getPesel(),policyForProfileDto.getNumberOfPolicy());
+        return new ResponseEntity<CustomerFullInfoForProfileDto>(customerFull,HttpStatus.OK);
+    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findCustomerById(@PathVariable Long id) {
-        Optional<Customer> customerOptional = customerService.findById(id);
-        if (customerOptional.isPresent()) {
-            return new ResponseEntity<Customer>(customerOptional.get(), HttpStatus.OK);
+    @GetMapping("/{pesel}")
+    public ResponseEntity<?> findByCustomerPesel (@PathVariable String pesel) {
+        Customer customer = customerService.findByPesel(pesel);
+        if (customer != null) {
+            return new ResponseEntity<Customer>(customer,HttpStatus.OK);
         }
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
 
+
+
     @PostMapping("/add")
-    public ResponseEntity<?> addCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
 
 
         try {
