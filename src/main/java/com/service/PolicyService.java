@@ -2,6 +2,7 @@ package com.service;
 
 import com.entity.Customer;
 import com.entity.Policy;
+import com.entity.dto.PolicyBasicInfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,17 +15,18 @@ public interface PolicyService {
     List<Policy> findAll();
 
 
-    public Optional<Policy> findByNumberOfPolicy(String numberOfPolicy);
+    public Policy findByNumberOfPolicy(String numberOfPolicy);
 
 
-    public void addPolicy(Policy policy) throws Exception;
+    public void addPolicy(PolicyBasicInfoDto policy) throws Exception;
 
-    public List<Policy> findByCriteria(String criteria, String searchItem) throws ParseException;
+    public List<Policy> findByCriteria(String criteria, String searchItem);
 
     public Boolean removePolicy(String numberOfPolicy);
 
     public Boolean updatePolicy(Policy policy);
 
-    public List<Policy> findTwoWeeksPolicies ();
+    public PolicyBasicInfoDto convertToPolicyBasicInfoDto(Policy policy);
+
 
 }
