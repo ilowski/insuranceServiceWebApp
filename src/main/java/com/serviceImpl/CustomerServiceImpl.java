@@ -1,7 +1,11 @@
 package com.serviceImpl;
 
 import com.entity.Customer;
+import com.entity.Policy;
+import com.entity.dto.PolicyBasicInfoDto;
+import com.entity.dto.PolicyForProfileDto;
 import com.repository.CustomerRepository;
+import com.service.PolicyService;
 import com.validator.CustomerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,13 +26,16 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerValidator customerValidator;
 
+    @Autowired
+    private PolicyService policyService;
+
     @Override
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
+    public Customer findById(long id) {
         return customerRepository.findById(id);
     }
 
@@ -54,6 +61,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public PolicyForProfileDto findPoliciesOfCustomer(String pesel) {
+      PolicyForProfileDto policyForProfileDto = new PolicyForProfileDto();
+        for (Policy x : policyService.findAll()) {
+            if (x.getCustomer().getPesel().equals(pesel)) {
+                policyForProfileDto.getNumberOfPolicy().add(x.getNumberOfPolicy());
+            }
+        }
+        return policyForProfileDto;
+
+    }
+
+    @Override
     public Boolean updateCustomer(Customer customer) {
         for (Customer x : customerRepository.findAll()) {
             if (x.getId() == customer.getId()) {
@@ -73,9 +92,14 @@ public class CustomerServiceImpl implements CustomerService {
                 return customerRepository.findByFirstName(searchItem);
             case "secondName":
                 return customerRepository.findBySecondName(searchItem);
-            case "pesel":
-                return customerRepository.findByPesel(searchItem);
+
+
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public Customer findByPesel(String pesel) {
+        return customerRepository.findByPesel(pesel);
     }
 }
