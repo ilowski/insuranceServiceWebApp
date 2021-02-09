@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,9 +16,14 @@ public class Customer {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String secondName;
+    @Size(min = 11, max=11)
     private String pesel;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<Policy> policies = new ArrayList<>();
 
     public Customer() {
 
