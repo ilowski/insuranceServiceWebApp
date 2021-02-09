@@ -1,2 +1,15 @@
 #navbar {
 font-size:19px;}
+
+#searchdiv {
+    width:40%;
+    margin:auto;
+    text-align:center;
+
+}
+button{
+    margin-top:3%;
+}
+label {
+margin-top:2%;
+display:block; }
