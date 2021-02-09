@@ -12,44 +12,50 @@ import java.util.Date;
 public class Policy {
     @Id
     private String numberOfPolicy;
+    @NotNull
     private String typeOfPolicy;
+    @NotNull
     private String insuranceCompany;
+    @NotNull
     private java.sql.Date dateOfStartPolicy;
+    @NotNull
     private java.sql.Date dateOfEndPolicy;
-    private Long customerId;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "customerId")
+    private Customer customer;
 
 
     public Policy() {
     }
 
-    public Policy(String numberOfPolicy, String typeOfPolicy, String insuranceCompany, java.sql.Date dateOfStartPolicy, java.sql.Date dateOfEndPolicy, Long customerId) {
+    public Policy(String numberOfPolicy, String typeOfPolicy, String insuranceCompany, java.sql.Date dateOfStartPolicy, java.sql.Date dateOfEndPolicy, Customer customer) {
         this.numberOfPolicy = numberOfPolicy;
         this.typeOfPolicy = typeOfPolicy;
         this.insuranceCompany = insuranceCompany;
         this.dateOfStartPolicy = dateOfStartPolicy;
         this.dateOfEndPolicy = dateOfEndPolicy;
-        this.customerId = customerId;
+        this.customer = customer;
     }
 
 
     @Override
     public String toString() {
         return "Policy{" +
-                ", numberOfPolicy=" + numberOfPolicy +
+                "numberOfPolicy='" + numberOfPolicy + '\'' +
                 ", typeOfPolicy='" + typeOfPolicy + '\'' +
                 ", insuranceCompany='" + insuranceCompany + '\'' +
                 ", dateOfStartPolicy=" + dateOfStartPolicy +
                 ", dateOfEndPolicy=" + dateOfEndPolicy +
-                ", customerId=" + customerId +
+                ", customer=" + customer +
                 '}';
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getNumberOfPolicy() {
