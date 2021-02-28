@@ -20,10 +20,12 @@ public class Customer {
     private String firstName;
     @NotNull
     private String secondName;
-    @Size(min = 11, max=11)
+    @Size(min = 11, max = 11)
     private String pesel;
+    private String numberPhone;
+    private String address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private List<Policy> policies = new ArrayList<>();
+    private final List<Policy> policies = new ArrayList<>();
 
     public Customer() {
 
