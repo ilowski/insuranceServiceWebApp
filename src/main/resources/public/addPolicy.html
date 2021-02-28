@@ -2,15 +2,50 @@
 <head>
     <meta charset="utf-8">
     <title>Dodawanie polis</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <div id="nav-placeholder">
 
 </div>
+
+
+<div id="searchdiv">
+    <form id="addPolicyForm">
+        <div class="form-group">
+            <label for="insuranceNumber">Dane polisy</label>
+            <input type="text" id="insuranceNumber" class="form-control" placeholder="Podaj numer polisy">
+            <label for="typeOfPolicy">Rodzaj polisy</label>
+            <select class="form-control" id="typeOfPolicy">
+                <option>Nieruchomości</option>
+                <option>OC/AC</option>
+            </select>
+            <label for="insuranceCompany">Agencja ubezpieczeniowa</label>
+            <select class="form-control" id="insuranceCompany">
+                <option>AXA</option>
+                <option>WARTA</option>
+            </select>
+            <label for="dateOfStartPolicy">Start polisy</label>
+
+            <input type="text" id="dateOfStartPolicy" class="form-control" placeholder="Podaj date rozpcoczęcia polisy">
+            <label for="dateOfEndPolicy">Koniec polisy</label>
+
+            <input type="text" id="dateOfEndPolicy" class="form-control" placeholder="Podaj date końca policy">
+            <label for="pesel">Pesel klienta</label>
+
+            <input type="text" id="pesel" class="form-control" placeholder="Pesel klienta">
+            <input type="text" id="firstName">
+            <input type="text" id="secondName">
+
+            <button type="submit" id="addPolicy" class="btn btn-primary"> Dodaj polise</button>
+            <label id="error"></label>
+    </form>
+</div>
+
 <script src="scripts/loadComponents.js" defer></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+<script src="scripts/addPolicy.js" defer></script>
 </body>
 </html>
