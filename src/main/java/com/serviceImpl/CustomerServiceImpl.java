@@ -2,29 +2,21 @@ package com.serviceImpl;
 
 import com.entity.Customer;
 import com.entity.Policy;
-import com.entity.dto.PolicyBasicInfoDto;
 import com.entity.dto.PolicyForProfileDto;
 import com.repository.CustomerRepository;
 import com.service.PolicyService;
-import com.validator.CustomerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.service.CustomerService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
-
-    @Autowired
-    private CustomerValidator customerValidator;
 
     @Autowired
     private PolicyService policyService;
@@ -40,13 +32,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void addCustomer(Customer customer) throws Exception {
-
-        if (customerValidator.isCustomerValid(customer)) {
-            customerRepository.save(customer);
-        } else {
-            throw new Exception();
-        }
+    public void addCustomer(Customer customer) {
+        customerRepository.save(customer);
     }
 
     @Override

@@ -6,45 +6,44 @@ import com.entity.dto.PolicyBasicInfoDto;
 import com.repository.CustomerRepository;
 import com.repository.PolicyRepository;
 import com.service.PolicyService;
-import com.validator.PolicyValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
 
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
     @Autowired
     private PolicyRepository policyRepository;
-    @Autowired
-    private PolicyValidator policyValidator;
+
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
     private ModelMapper modelMapper;
 
 
-
     @Override
-    public List<Policy> findAll() {return policyRepository.findAll();
+    public List<Policy> findAll() {
+        return policyRepository.findAll();
     }
 
+/*
+    @Override
+    public List<Policy> findTwoWeeksPolicies() {
+        return policyRepository.findTwoWeeksPolicy();
+    }
 
+ */
 
     @Override
-    public void addPolicy(PolicyBasicInfoDto policyBasicInfoDto) throws Exception {
+    public void addPolicy(PolicyBasicInfoDto policyBasicInfoDto) {
 
         Customer customer = customerRepository.findByPesel(policyBasicInfoDto.getCustomer().getPesel());
+
         if (customer == null) {
             customer = new Customer();
             customer.setFirstName(policyBasicInfoDto.getCustomer().getFirstName());
@@ -60,20 +59,18 @@ public class PolicyServiceImpl implements PolicyService {
                 policyBasicInfoDto.getDateOfEndPolicy(),
                 customer
         );
-        if (policyValidator.isPolicyValid(policy)) {
+
             policyRepository.save(policy);
-        } else {
-            throw new Exception();
-        }
+
     }
 
 
     @Override
     public List<Policy> findByCriteria(String criteria, String searchItem)  {
         switch (criteria) {
-            case "insuranceCompany":
+            case "Agencja":
                 return policyRepository.findByInsuranceCompany(searchItem);
-            case "typeOfPolicy":
+            case "RodzajPolisy":
                 return policyRepository.findByTypeOfPolicy(searchItem);
             case "dateOfStartPolicy":
                 return policyRepository.findByDateOfStartPolicy(searchItem);
@@ -90,14 +87,18 @@ public class PolicyServiceImpl implements PolicyService {
             policyRepository.delete(policyRepository.findByNumberOfPolicy(numberOfPolicy));
             return true;
         }
-    return false;
+        return false;
 
     }
 
+    @Override
+    public List<Policy> findByCustomerId(Long customerId) {
+        return policyRepository.findByCustomerId(customerId);
+    }
 
     @Override
     public Boolean updatePolicy(Policy policy) {
-        if(policyRepository.findByNumberOfPolicy(policy.getNumberOfPolicy()) != null)  {
+        if (policyRepository.findByNumberOfPolicy(policy.getNumberOfPolicy()) != null) {
             Policy updatePolicy = policyRepository.findByNumberOfPolicy(policy.getNumberOfPolicy());
             updatePolicy.setTypeOfPolicy(policy.getTypeOfPolicy());
             updatePolicy.setDateOfEndPolicy(policy.getDateOfEndPolicy());
