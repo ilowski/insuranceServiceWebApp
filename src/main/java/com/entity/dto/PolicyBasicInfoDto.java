@@ -1,15 +1,25 @@
 package com.entity.dto;
 
 
+import com.validator.NumberOfPolicyConstraint;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 public class PolicyBasicInfoDto {
-
+    @NumberOfPolicyConstraint
     private String numberOfPolicy;
+    @NotNull
     private String typeOfPolicy;
+    @NotNull
     private String insuranceCompany;
+    @NotNull
     private java.sql.Date dateOfStartPolicy;
+    @NotNull
     private java.sql.Date dateOfEndPolicy;
+    @Valid
     private CustomerBasicInfoForPolicyDto customer;
 
     public PolicyBasicInfoDto() {

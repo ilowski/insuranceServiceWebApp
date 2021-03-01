@@ -1,16 +1,14 @@
 package com.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Entity
 @Table(name = "policies")
 public class Policy {
     @Id
+    @NotNull
     private String numberOfPolicy;
     @NotNull
     private String typeOfPolicy;
@@ -19,6 +17,7 @@ public class Policy {
     @NotNull
     private java.sql.Date dateOfStartPolicy;
     @NotNull
+    @Future
     private java.sql.Date dateOfEndPolicy;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "customerId")

@@ -1,6 +1,8 @@
 package com.entity;
 
+import com.validator.PeselConstraint;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.pl.PESEL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,7 +22,8 @@ public class Customer {
     private String firstName;
     @NotNull
     private String secondName;
-    @Size(min = 11, max = 11)
+    @PESEL
+    @PeselConstraint
     private String pesel;
     private String numberPhone;
     private String address;
