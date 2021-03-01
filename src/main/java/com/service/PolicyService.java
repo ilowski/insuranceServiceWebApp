@@ -15,18 +15,25 @@ public interface PolicyService {
     List<Policy> findAll();
 
 
-    public Policy findByNumberOfPolicy(String numberOfPolicy);
+    Policy findByNumberOfPolicy(String numberOfPolicy);
 
 
-    public void addPolicy(PolicyBasicInfoDto policy) throws Exception;
+    void addPolicy(PolicyBasicInfoDto policy);
 
-    public List<Policy> findByCriteria(String criteria, String searchItem);
+    List<Policy> findByCriteria(String criteria, String searchItem);
 
-    public Boolean removePolicy(String numberOfPolicy);
+    Boolean removePolicy(String numberOfPolicy);
 
-    public Boolean updatePolicy(Policy policy);
+    Boolean updatePolicy(Policy policy);
 
-    public PolicyBasicInfoDto convertToPolicyBasicInfoDto(Policy policy);
+    PolicyBasicInfoDto convertToPolicyBasicInfoDto(Policy policy);
+    /*
+
+    public List<Policy> findTwoWeeksPolicies();
+
+     */
+
+    List<Policy> findByCustomerId(Long customerId);
 
 
 }

@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    public List<Customer> findAllCustomers();
+    List<Customer> findAllCustomers();
 
-    public Customer findById(long id);
+    Customer findById(long id);
 
-    public PolicyForProfileDto findPoliciesOfCustomer(String pesel);
+    PolicyForProfileDto findPoliciesOfCustomer(String pesel);
 
-    public void addCustomer(Customer customer) throws Exception;
+    void addCustomer(Customer customer);
 
-    public List<Customer> findByCriteria(String criteria, String searchItem);
+    List<Customer> findByCriteria(String criteria, String searchItem);
 
-    public Boolean removeCustomer(Long id);
+    Boolean removeCustomer(Long id);
 
-    public Boolean updateCustomer(Customer customer);
+    Boolean updateCustomer(Customer customer);
 
-    public Customer findByPesel (String pesel);
+    Customer findByPesel(String pesel);
 }
