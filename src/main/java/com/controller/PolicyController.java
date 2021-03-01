@@ -24,9 +24,10 @@ import java.util.stream.Collectors;
 public class PolicyController {
 
 
-    private PolicyService policyService;
+    private final PolicyService policyService;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
 
     @Autowired
     public PolicyController(PolicyService policyService, ModelMapper modelMapper) {
@@ -34,30 +35,39 @@ public class PolicyController {
         this.modelMapper = modelMapper;
     }
 
+
     @GetMapping
     public ResponseEntity<?> findAllPolicies() {
         List<Policy> policies = policyService.findAll();
-        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()),HttpStatus.OK);
+
+        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    /*
+    @GetMapping("/findTwoWeeksPolicies")
+    public ResponseEntity<?> findTwoWeeksPolicies() {
+        List<Policy> policies = policyService.findTwoWeeksPolicies();
+        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()),HttpStatus.OK);
+
+
+*/
 
     @GetMapping("/search")
     public ResponseEntity<?> findByCriteria(@RequestParam(name = "criteria", required = true) String criteria,
                                             @RequestParam(name = "searchItem", required = true) String searchItem) {
         List<Policy> policies = policyService.findByCriteria(criteria, searchItem);
-        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()), HttpStatus.OK); }
+        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()), HttpStatus.OK);
+    }
 
 
 
 
     @PostMapping("/add")
     public ResponseEntity<?> addPolicy(@Valid @RequestBody PolicyBasicInfoDto policy) {
-        try {
-            policyService.addPolicy(policy);
-            return new ResponseEntity<Void>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
-        }
+
+        policyService.addPolicy(policy);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+
     }
 
     @GetMapping("/{numberOfPolicy}")
