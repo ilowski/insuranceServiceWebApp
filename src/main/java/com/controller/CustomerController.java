@@ -3,23 +3,18 @@ package com.controller;
 import com.entity.Customer;
 import com.entity.dto.CustomerFullInfoForProfileDto;
 import com.entity.dto.PolicyForProfileDto;
-import com.validator.CustomerValidator;
+import com.validator.ErrorWrapper;
+import com.validator.MethodArgumentNotValidExceptionHandler;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import com.service.CustomerService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -30,7 +25,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    private CustomerValidator customerValidator;
+
     @Autowired
     ModelMapper modelMapper;
 
@@ -69,14 +64,9 @@ public class CustomerController {
     public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
 
 
-        try {
-            customerService.addCustomer(customer);
+        customerService.addCustomer(customer);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
 
-            return new ResponseEntity<Void>(HttpStatus.CREATED);
-
-        } catch (Exception e) {
-            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
-        }
 
     }
 
