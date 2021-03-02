@@ -18,13 +18,23 @@ public class CustomerFullInfoForProfileDto {
 
     private String pesel;
 
+    private String address;
+
+    private String phoneNumber;
+
+    private final String additionalInformation;
+
     private List<String> policies;
 
-    public CustomerFullInfoForProfileDto(Long id, String firstName, String secondName, String pesel, List<String> policies) {
+
+    public CustomerFullInfoForProfileDto(Long id, String firstName, String secondName, String pesel, String address, String phoneNumber, String additionalInformation, List<String> policies) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.pesel = pesel;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.additionalInformation = additionalInformation;
         this.policies = policies;
     }
 
@@ -66,5 +76,21 @@ public class CustomerFullInfoForProfileDto {
 
     public void setPolicies(List<String> policies) {
         this.policies = policies;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
