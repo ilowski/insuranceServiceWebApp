@@ -12,14 +12,24 @@ import java.util.Optional;
 
 @Repository
 public interface PolicyRepository extends JpaRepository<Policy, String> {
-    public Policy findByNumberOfPolicy(String numberOfPolicy);
+    Policy findByNumberOfPolicy(String numberOfPolicy);
 
-    public List<Policy> findByInsuranceCompany(String insuranceCompany);
+    List<Policy> findByInsuranceCompany(String insuranceCompany);
 
-    public List<Policy> findByTypeOfPolicy(String typeOfPolicy);
-
-    public List<Policy> findByDateOfStartPolicy(String dateOfStartPolicy);
+    List<Policy> findByTypeOfPolicy(String typeOfPolicy);
 
 
-    public List<Policy> findByDateOfEndPolicy(String dateOfEndPolicy);
+    List<Policy> findByDateOfStartPolicy(java.sql.Date dateOfStartPolicy);
+
+    void deleteByNumberOfPolicy(String numberOfPolicy);
+
+
+    List<Policy> findByDateOfEndPolicy(java.sql.Date dateOfEndPolicy);
+
+    @Query("select policy from Policy policy where datediff(policy.dateOfEndPolicy,curdate())<=14")
+    List<Policy> findTwoWeeksPolicy();
+
+
+    List<Policy> findByCustomerId(Long customerId);
+
 }
