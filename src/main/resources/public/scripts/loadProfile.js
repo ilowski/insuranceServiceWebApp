@@ -20,6 +20,9 @@ out += `
 <th>${customer.firstName}</th>
 <th>${customer.secondName}</th>
 <th>${customer.pesel}</th>
+<th>${customer.address}</th>
+<th>${customer.phoneNumber}
+<th>${customer.additionalInformations}
 
 
 `
