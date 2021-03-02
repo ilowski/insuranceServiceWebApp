@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +32,13 @@ public class PolicyServiceImpl implements PolicyService {
         return policyRepository.findAll();
     }
 
-/*
+
     @Override
     public List<Policy> findTwoWeeksPolicies() {
         return policyRepository.findTwoWeeksPolicy();
     }
 
- */
+
 
     @Override
     public void addPolicy(PolicyBasicInfoDto policyBasicInfoDto) {
@@ -72,19 +73,16 @@ public class PolicyServiceImpl implements PolicyService {
                 return policyRepository.findByInsuranceCompany(searchItem);
             case "RodzajPolisy":
                 return policyRepository.findByTypeOfPolicy(searchItem);
-            case "dateOfStartPolicy":
-                return policyRepository.findByDateOfStartPolicy(searchItem);
-            case "dateOfEndPolicy":
-                return policyRepository.findByDateOfEndPolicy(searchItem);
         }
         return new ArrayList<>();
     }
 
 
+    @Transactional
     @Override
     public Boolean removePolicy(String numberOfPolicy) {
         if (policyRepository.findByNumberOfPolicy(numberOfPolicy) != null) {
-            policyRepository.delete(policyRepository.findByNumberOfPolicy(numberOfPolicy));
+            policyRepository.deleteByNumberOfPolicy(numberOfPolicy);
             return true;
         }
         return false;
@@ -98,8 +96,8 @@ public class PolicyServiceImpl implements PolicyService {
 
     @Override
     public Boolean updatePolicy(Policy policy) {
-        if (policyRepository.findByNumberOfPolicy(policy.getNumberOfPolicy()) != null) {
-            Policy updatePolicy = policyRepository.findByNumberOfPolicy(policy.getNumberOfPolicy());
+        Policy updatePolicy = policyRepository.findByNumberOfPolicy(policy.getNumberOfPolicy());
+        if (updatePolicy != null) {
             updatePolicy.setTypeOfPolicy(policy.getTypeOfPolicy());
             updatePolicy.setDateOfEndPolicy(policy.getDateOfEndPolicy());
             updatePolicy.setCustomer(policy.getCustomer());
