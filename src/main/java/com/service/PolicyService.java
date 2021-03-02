@@ -27,11 +27,8 @@ public interface PolicyService {
     Boolean updatePolicy(Policy policy);
 
     PolicyBasicInfoDto convertToPolicyBasicInfoDto(Policy policy);
-    /*
 
-    public List<Policy> findTwoWeeksPolicies();
-
-     */
+    List<Policy> findTwoWeeksPolicies();
 
     List<Policy> findByCustomerId(Long customerId);
 
