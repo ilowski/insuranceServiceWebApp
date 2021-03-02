@@ -36,21 +36,19 @@ public class PolicyController {
     }
 
 
-    @GetMapping
+    @GetMapping("/findAllPolicies")
     public ResponseEntity<?> findAllPolicies() {
         List<Policy> policies = policyService.findAll();
 
         return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    /*
-    @GetMapping("/findTwoWeeksPolicies")
+
+    @GetMapping()
     public ResponseEntity<?> findTwoWeeksPolicies() {
         List<Policy> policies = policyService.findTwoWeeksPolicies();
-        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()),HttpStatus.OK);
-
-
-*/
+        return new ResponseEntity<List<PolicyBasicInfoDto>>(policies.stream().map(policy -> modelMapper.map(policy, PolicyBasicInfoDto.class)).collect(Collectors.toList()), HttpStatus.OK);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<?> findByCriteria(@RequestParam(name = "criteria", required = true) String criteria,
