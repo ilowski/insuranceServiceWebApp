@@ -25,8 +25,9 @@ public class Customer {
     @PESEL
     @PeselConstraint
     private String pesel;
-    private String numberPhone;
+    private String phoneNumber;
     private String address;
+    private String additionalInformation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private final List<Policy> policies = new ArrayList<>();
 
@@ -40,16 +41,19 @@ public class Customer {
         this.pesel = pesel;
     }
 
+
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
-                ", pesel=" + pesel +
+                ", pesel='" + pesel + '\'' +
+                ", numberPhone='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", policies=" + policies +
                 '}';
     }
-
 
     public String getPesel() {
         return pesel;
@@ -102,4 +106,27 @@ public class Customer {
         this.secondName = secondName;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    public void setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
