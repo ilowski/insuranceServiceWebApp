@@ -19,11 +19,6 @@ public class NumberOfPolicyValidator implements ConstraintValidator<NumberOfPoli
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        for (Policy x : policyRepository.findAll()) {
-            if (x.getNumberOfPolicy().equals(value)) {
-                return false;
-            }
-        }
-        return value != null;
+     return policyRepository.findByNumberOfPolicy(value) == null;
     }
 }

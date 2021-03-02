@@ -14,12 +14,7 @@ public class PeselValidator implements ConstraintValidator<PeselConstraint, Stri
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        for (Customer x : customerRepository.findAll()) {
-            if (x.getPesel().equals(value)) {
-                return false;
-            }
-        }
-        return true;
+        return customerRepository.findByPesel(value) == null;
     }
 
     @Override
