@@ -9,16 +9,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer>, CrudRepository<Customer,Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer>, CrudRepository<Customer, Long> {
 
-    public List<Customer> findByFirstName(String firstName);
+    List<Customer> findByFirstName(String firstName);
 
-    public List<Customer> findBySecondName(String secondName);
+    List<Customer> findBySecondName(String secondName);
 
-    public Customer findByPesel(String pesel);
+    Customer findByPesel(String pesel);
 
-    public Customer findById(long id);
+    Customer findById(long id);
 
+    void deleteByPesel(String pesel);
 
 
 }
