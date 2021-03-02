@@ -45,7 +45,7 @@ public class CustomerController {
     public ResponseEntity<?> getProfileCustomer(@PathVariable String pesel) {
         Customer customer = customerService.findByPesel(pesel);
         PolicyForProfileDto policyForProfileDto = customerService.findPoliciesOfCustomer(pesel);
-        CustomerFullInfoForProfileDto customerFull = new CustomerFullInfoForProfileDto(customer.getId(),customer.getFirstName(),customer.getSecondName(),customer.getPesel(),policyForProfileDto.getNumberOfPolicy());
+        CustomerFullInfoForProfileDto customerFull = new CustomerFullInfoForProfileDto(customer.getId(), customer.getFirstName(), customer.getSecondName(), customer.getPesel(), customer.getAddress(), customer.getPhoneNumber(), customer.getAdditionalInformation(), policyForProfileDto.getNumberOfPolicy());
         return new ResponseEntity<CustomerFullInfoForProfileDto>(customerFull,HttpStatus.OK);
     }
 
@@ -71,7 +71,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<?> removeCustomer(@PathVariable Long id) {
+    public ResponseEntity<?> removeCustomer(@PathVariable long id) {
         if (customerService.removeCustomer(id)) {
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         } else {
