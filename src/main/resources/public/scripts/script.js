@@ -29,11 +29,11 @@ fetch(`${POLICIES_API_URL}`)
     })
 
 document.getElementById('search').addEventListener('click', (event) => {
-    event.preventDefault();
+            event.preventDefault();
     let criteria = document.getElementById('criteria').value;
     let searchItem = document.getElementById('searchItem').value; {
         {
-            fetch(`${POLICIES_API_URL}/${searchItem}`)
+            fetch(`${POLICIES_API_URL}/search?criteria=${criteria}&searchItem=${searchItem}`)
                 .then(response => {
                     if (!response.ok) {
                         // Note: Strongly recommend using Error for exceptions/rejections
@@ -43,7 +43,7 @@ document.getElementById('search').addEventListener('click', (event) => {
 
                 })
                 .then(policy => {
-
+                    document.getElementById('error').innerHTML = ""
                     let out = '';
 
 
