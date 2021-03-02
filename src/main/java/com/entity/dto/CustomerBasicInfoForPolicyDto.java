@@ -1,6 +1,7 @@
 package com.entity.dto;
 
 import com.validator.PeselConstraint;
+import com.validator.PeselOfCustomerBasicInfoConstraint;
 import org.hibernate.validator.constraints.pl.PESEL;
 import org.springframework.security.core.parameters.P;
 
@@ -8,12 +9,11 @@ import javax.validation.constraints.NotNull;
 
 public class CustomerBasicInfoForPolicyDto {
 
-    @NotNull
     String firstName;
-    @NotNull
+
     String secondName;
     @PESEL
-    @PeselConstraint
+    @PeselOfCustomerBasicInfoConstraint
     String pesel;
 
     public CustomerBasicInfoForPolicyDto(String firstName, String secondName, String pesel) {
