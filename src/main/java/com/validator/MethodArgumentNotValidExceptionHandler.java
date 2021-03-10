@@ -34,7 +34,9 @@ public class MethodArgumentNotValidExceptionHandler {
     public ErrorWrapper processFieldErrors(List<FieldError> fieldErrors) {
         ErrorWrapper errorWrapper = new ErrorWrapper("error.validation");
         for (FieldError fieldError : fieldErrors) {
-            errorWrapper.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
+            String[] fields = fieldError.getField().split("\\.");
+            System.out.println(fields.length + " XDDDDDDDD ");
+            errorWrapper.add(fieldError.getObjectName(), fieldError.getField(), (fields.length == 2 ? fields[1] : fields[0]) + " " + fieldError.getDefaultMessage());
         }
         return errorWrapper;
     }

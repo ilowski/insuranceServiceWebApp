@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PeselOfCustomerBasicInfoConstraint {
-    String message() default "peselu nie ma w bazie danych! Dodaj uzytkownika";
+    String message() default "musi być najpierw w bazie danych! Dodaj uzytkownika";
 
     Class<?>[] groups() default {};
 
