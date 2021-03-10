@@ -2,10 +2,6 @@ CUSTOMERS_API_URL = 'http://localhost:8080/api/customers';
 POLICIES_API_URL = 'http://localhost:8080/api/policies';
 
 
-
-
-
-
 fetch(`${POLICIES_API_URL}`)
     .then(response => response.json())
     .then(policies => {
@@ -29,25 +25,25 @@ fetch(`${POLICIES_API_URL}`)
     })
 
 document.getElementById('search').addEventListener('click', (event) => {
-            event.preventDefault();
-    let criteria = document.getElementById('criteria').value;
-    let searchItem = document.getElementById('searchItem').value; {
+        event.preventDefault();
+        let criteria = document.getElementById('criteria').value;
+        let searchItem = document.getElementById('searchItem').value;
         {
-            fetch(`${POLICIES_API_URL}/search?criteria=${criteria}&searchItem=${searchItem}`)
-                .then(response => {
-                    if (!response.ok) {
-                        // Note: Strongly recommend using Error for exceptions/rejections
-                        throw new Error("HTTP error " + response.status);
-                    }
-                    return response.json();
+            {
+                fetch(`${POLICIES_API_URL}/search?criteria=${criteria}&searchItem=${searchItem}`)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error("HTTP error " + response.status);
+                        }
+                    })
+                    .then(policy => {
+                        document.getElementById('error').innerHTML = "XDD"
+                        let out = '';
+                        policy.forEach(policy => {
 
-                })
-                .then(policy => {
-                    document.getElementById('error').innerHTML = ""
-                    let out = '';
-
-
-                    out = `
+                            out = `
         <tr>
         <th onclick="location.href='profile.html?pesel=${policy.customer.pesel}' " >${policy.customer.pesel} </th>
         <th>${policy.customer.secondName}</th>
@@ -58,21 +54,21 @@ document.getElementById('search').addEventListener('click', (event) => {
         <th>${policy.dateOfEndPolicy}</th>
         </tr>`
 
-                    document.getElementById("tablebody").innerHTML = out;
+                            document.getElementById("tablebody").innerHTML = out;
 
-                })
+                        })
 
-                .catch(error => {
-                    document.getElementById('error').innerHTML = "POPRAW DANE!"
-                })
+                            .catch(error => {
+                                document.getElementById('error').innerHTML = "POPRAW DANE!"
+                            })
 
+                    })
+            }
 
         }
+
+
     }
-
-
-
-}
 )
 
 
