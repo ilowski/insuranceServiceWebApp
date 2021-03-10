@@ -19,18 +19,28 @@ document.getElementById("addPolicy").addEventListener('click', (event) => {
             dateOfStartPolicy: dateOfStartPolicy.value,
             dateOfEndPolicy: dateOfEndPolicy.value,
             customer: {
-                firstName: firstName.value,
-                secondName: secondName.value,
                 pesel: pesel.value
-
             }
         })
+
     })
 
-        .then(response => response.text())
-        .then((text) => {
-            console.log(text);
-        });
+        .then(response => {
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                return response.json()
+                    .then(response => {
+                        document.getElementById("error").innerHTML = `${response.fieldErrors.message}`
+                    })
+            } else {
+                document.getElementById("addPolicyForm").reset();
+                document.getElementById("error").innerHTML = "Sukces! Dodano polise";
+            }
+        })
+
+
+
+
 
 });
 
