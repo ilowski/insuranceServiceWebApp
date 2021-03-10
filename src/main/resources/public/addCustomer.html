@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dodawanie polis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div id="nav-placeholder">
+
+</div>
+
+
+<div id="searchdiv">
+    <form id="addPolicyForm">
+        <div class="form-group">
+            <label for="firstName">Imię</label>
+            <input type="text" id="firstName" class="form-control" placeholder="Podaj imię klienta">
+            <label for="secondName">Nazwisko</label>
+            <input class="form-control" id="secondName" placeholder="Podaj nazwisko klienta">
+            <label for="pesel">Pesel</label>
+            <input class="form-control" id="pesel" placeholder="Podaj pesel klienta">
+
+
+            <button type="submit" id="addCustomer" class="btn btn-primary"> Dodaj klienta</button>
+            <label id="error"></label>
+    </form>
+</div>
+
+<script src="scripts/loadComponents.js" defer></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="scripts/addCustomer.js" defer></script>
+</body>
+</html>
