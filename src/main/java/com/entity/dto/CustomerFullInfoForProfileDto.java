@@ -22,7 +22,7 @@ public class CustomerFullInfoForProfileDto {
 
     private String phoneNumber;
 
-    private final String additionalInformation;
+    private String additionalInformation;
 
     private List<String> policies;
 
@@ -92,5 +92,13 @@ public class CustomerFullInfoForProfileDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    public void setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
     }
 }
