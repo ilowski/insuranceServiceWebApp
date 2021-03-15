@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.entity.Customer;
+import com.entity.dto.CustomerBasicInfoForPolicyDto;
 import com.entity.dto.CustomerFullInfoForProfileDto;
 import com.entity.dto.PolicyForProfileDto;
 import com.validator.ErrorWrapper;
@@ -15,6 +16,7 @@ import com.service.CustomerService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -32,7 +34,8 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<?> findAllCustomers() {
-        return new ResponseEntity<List<Customer>>(customerService.findAllCustomers(), HttpStatus.OK);
+        List<Customer> customers = customerService.findAllCustomers();
+        return new ResponseEntity<List<CustomerBasicInfoForPolicyDto>>(customers.stream().map(customer -> modelMapper.map(customer, CustomerBasicInfoForPolicyDto.class)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/search")
@@ -59,7 +62,6 @@ public class CustomerController {
     }
 
 
-
     @PostMapping("/add")
     public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
 
@@ -70,9 +72,9 @@ public class CustomerController {
 
     }
 
-    @DeleteMapping("/remove/{id}")
-    public ResponseEntity<?> removeCustomer(@PathVariable long id) {
-        if (customerService.removeCustomer(id)) {
+    @DeleteMapping("/remove/{pesel}")
+    public ResponseEntity<?> removeCustomer(@PathVariable String pesel) {
+        if (customerService.removeCustomer(pesel)) {
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
