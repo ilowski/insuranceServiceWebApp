@@ -58,8 +58,6 @@ public class PolicyController {
     }
 
 
-
-
     @PostMapping("/add")
     public ResponseEntity<?> addPolicy(@Valid @RequestBody PolicyBasicInfoDto policy) {
 
