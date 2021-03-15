@@ -2,6 +2,7 @@ package com.entity.dto;
 
 
 import com.validator.NumberOfPolicyConstraint;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
@@ -17,7 +18,7 @@ public class PolicyBasicInfoDto {
     private String insuranceCompany;
     @NotNull
     private java.sql.Date dateOfStartPolicy;
-    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private java.sql.Date dateOfEndPolicy;
     @Valid
     private CustomerBasicInfoForPolicyDto customer;
