@@ -84,9 +84,11 @@ public class PolicyServiceImpl implements PolicyService {
                 return policyRepository.findByCustomerId(customerService.findByPesel(searchItem).getId());
             case "Nazwisko":
                 List<Customer> customers = customerService.findByCriteria("secondName", searchItem);
-                return customers.stream().map(customer -> findByCustomerId(customer.getId())).collect(Collectors.toList()).get(0);
-
-
+                List<List<Policy>> policies = customers.stream().map(customer -> findByCustomerId(customer.getId())).collect(Collectors.toList());
+                for (int i = 1; i < policies.size(); i++) {
+                    policies.get(0).addAll(policies.get(1));
+                }
+                return policies.get(0);
         }
 
         return new ArrayList<>();
