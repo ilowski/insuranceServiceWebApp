@@ -3,13 +3,17 @@ package com.entity;
 import com.validator.PeselConstraint;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.pl.PESEL;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "customers")
@@ -18,13 +22,16 @@ public class Customer {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
-    @NotNull
+    @NotNull(message = "Uzupełnij imię!")
+    @NotEmpty(message = "Uzupełnij imię!")
     private String firstName;
-    @NotNull
+    @NotNull(message = "uzupełnij nazwisko")
+    @NotEmpty(message = "uzupełnij nazwisko!")
     private String secondName;
     @PESEL
     @PeselConstraint
     private String pesel;
+    @Pattern(regexp = "(^$|[0-9]{9})", message = "Uzupełnij poprawnie numer telefonu")
     private String phoneNumber;
     private String address;
     private String additionalInformation;
@@ -41,7 +48,6 @@ public class Customer {
         this.pesel = pesel;
     }
 
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -49,8 +55,9 @@ public class Customer {
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", pesel='" + pesel + '\'' +
-                ", numberPhone='" + phoneNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", additionalInformation='" + additionalInformation + '\'' +
                 ", policies=" + policies +
                 '}';
     }
@@ -107,11 +114,15 @@ public class Customer {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return Optional.ofNullable(phoneNumber).orElse("Nie podano");
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            this.phoneNumber = "Nie podano";
+        } else {
+            this.phoneNumber = phoneNumber;
+        }
     }
 
     public String getAdditionalInformation() {
