@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Dodawanie polis</title>
+    <title>Dodawanie klienta</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -13,7 +13,7 @@
 
 
 <div id="searchdiv">
-    <form id="addPolicyForm">
+    <form id="addCustomerForm">
         <div class="form-group">
             <label for="firstName">Imię</label>
             <input type="text" id="firstName" class="form-control" placeholder="Podaj imię klienta">
@@ -21,10 +21,18 @@
             <input class="form-control" id="secondName" placeholder="Podaj nazwisko klienta">
             <label for="pesel">Pesel</label>
             <input class="form-control" id="pesel" placeholder="Podaj pesel klienta">
+            <label for="phoneNumber">Numer Telefonu</label>
+            <input class="form-control" id="phoneNumber" placeholder="Podaj numer telefonu klienta">
+            <label for="address">Adres</label>
+            <input class="form-control" id="address" placeholder="Podaj adres klienta">
+            <label for="additionalInformation">Dodatkowe informacje</label>
+            <input class="form-control" id="additionalInformation"
+                   placeholder="Podaj dodatkowe informacje dotyczące klienta">
 
 
             <button type="submit" id="addCustomer" class="btn btn-primary"> Dodaj klienta</button>
             <label id="error"></label>
+        </div>
     </form>
 </div>
 

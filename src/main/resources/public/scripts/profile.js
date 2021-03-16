@@ -2,9 +2,28 @@ CUSTOMERS_API_URL = 'http://localhost:8080/api/customers';
 POLICIES_API_URL = 'http://localhost:8080/api/policies';
 
 
-var url_string = window.location.href; //window.location.href
+var url_string = window.location.href;
 var url = new URL(url_string);
 var pesel = url.searchParams.get("pesel");
+
+var modal = document.getElementById('id01');
+
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+document.getElementById("deleteButton").addEventListener('click', (event) => {
+    event.preventDefault();
+    fetch(`${CUSTOMERS_API_URL}/remove/${pesel}`, {
+        method: 'DELETE'
+
+    })
+
+    location.href = 'customerSearch.html';
+})
 
 fetch(`${CUSTOMERS_API_URL}/profile/${pesel}`)
     .then(response => response.json())
@@ -21,8 +40,8 @@ fetch(`${CUSTOMERS_API_URL}/profile/${pesel}`)
 <th>${customer.secondName}</th>
 <th>${customer.pesel}</th>
 <th>${customer.address}</th>
-<th>${customer.phoneNumber}
-<th>${customer.additionalInformations}
+<th>${customer.phoneNumber}</th>
+<th>${customer.additionalInformation}</th>
 
 
 `
@@ -38,3 +57,10 @@ fetch(`${CUSTOMERS_API_URL}/profile/${pesel}`)
         }
 
     })
+
+
+document.getElementById('editCustomerButton').addEventListener('click', (event) => {
+    const form = document.getElementById('id02');
+    form.style.display = 'block';
+    form.
+})

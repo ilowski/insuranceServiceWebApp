@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+</head>
+<body>
+<div id="nav-placeholder">
+
+</div>
+<div id="searchdiv">
+    <form>
+        <div class="form-group">
+            <label for="criteria">Kryteria</label>
+            <select class="form-control" id="criteria">
+                <option>Nazwisko</option>
+                <option>Pesel</option>
+            </select>
+        </div>
+        <input type="text" id="searchItem" class="form-control" placeholder="Podaj wyszukiwaną wartość">
+
+        <button type="submit" id="search" class="btn btn-primary"> Wyszukaj klientów</button>
+        <button type="submit" id="findAllCustomers" class="btn btn-primary"> Wszyscy klienci</button>
+
+        <label id="error"></label>
+    </form>
+</div>
+
+<table id="customers" class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Pesel</th>
+        <th scope="col">Imię</th>
+        <th scope="col">Nazwisko</th>
+
+
+    </tr>
+    </thead>
+    <tbody id="tablebody">
+
+    </tbody>
+</table>
+
+<!-- Latest compiled and minified CSS -->
+
+<script src="scripts/loadCustomers.js" defer></script>
+<script src="scripts/loadComponents.js" defer></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+
+</body>
+</html>

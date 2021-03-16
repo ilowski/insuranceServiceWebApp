@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
 </head>
 <body>
 <div id="nav-placeholder">
@@ -13,13 +15,13 @@
 <table class="table" id="profiletable">
     <thead>
     <tr>
-        <th scope="col">Id klienta</th>
-        <th scope="col">Imię</th>
-        <th scope="col">Nazwisko</th>
-        <th scope="col">Pesel</th>
-        <th scope="col">Adres</th>
-        <th scope="col">Numer telefonu</th>
-        <th scope="col">Dodatkowe informacje</th>
+        <th scope="col" id="idCustomer">Id klienta</th>
+        <th scope="col" id="firstNameCustomer">Imię</th>
+        <th scope="col" id="secondNameCustomer">Nazwisko</th>
+        <th scope="col" id="peselCustomer">Pesel</th>
+        <th scope="col" id="addressCustomer">Adres</th>
+        <th scope="col" id="phoneNumberCustomer">Numer telefonu</th>
+        <th scope="col" id="additionalInformationCustomer">Dodatkowe informacje</th>
         <th scope="col" id="policiesRow" style="text-align:center;">Polisy</th>
     </tr>
     </thead>
@@ -27,10 +29,65 @@
 
     </tbody>
 </table>
+<button style="background-color: #4a77d4" id="editCustomerButton">EDYTUJ UŻYTKOWNIKA</button>
+<button onclick="document.getElementById('id01').style.display='block'">USUN UŻYTKOWNIKA</button>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close">×</span>
+    <form>
+        <div class="container">
+            <h1>USUWANIE KONTA</h1>
+            <p>Czy jesteś pewny, że chcesz usunąć konto? Operacji nie da się cofnąć!</p>
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                    Cofnij
+                </button>
+                <button type="button" id="deleteButton" onclick="document.getElementById('id01').style.display='none'"
+                        class="deletebtn">Usuń
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="id02" class="modal">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close">×</span>
+    <form>
+        <div class="container">
+            <h1>EDYTOWANIE KONTA</h1>
+            <div class="form-group">
+                <label for="firstName">Imię</label>
+                <input type="text" id="firstName" class="form-control"
+                       value="document.getElementById('firstNameCustomer')" placeholder="Podaj imię klienta">
+                <label for="secondName">Nazwisko</label>
+                <input class="form-control" id="secondName" placeholder="Podaj nazwisko klienta">
+                <label for="pesel">Pesel</label>
+                <input class="form-control" id="pesel" placeholder="Podaj pesel klienta">
+                <label for="phoneNumber">Numer Telefonu</label>
+                <input class="form-control" id="phoneNumber" placeholder="Podaj numer telefonu klienta">
+                <label for="address">Adres</label>
+                <input class="form-control" id="address" placeholder="Podaj adres klienta">
+                <label for="additionalInformation">Dodatkowe informacje</label>
+                <input class="form-control" id="additionalInformation"
+                       placeholder="Podaj dodatkowe informacje dotyczące klienta">
+                <div class="clearfix">
+                    <button type="button" onclick="document.getElementById('id02').style.display='none'"
+                            class="cancelbtn">
+                        Cofnij
+                    </button>
+                    <button type="button" id="editButton" onclick="document.getElementById('id02').style.display='none'"
+                            class="editbtn">Edytuj
+                    </button>
+                </div>
+            </div>
+    </form>
+</div>
+
 
 <script src="scripts/loadComponents.js" defer></script>
 
-<script src="scripts/loadProfile.js" defer></script>
+<script src="scripts/profile.js" defer></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </body>
 </html>

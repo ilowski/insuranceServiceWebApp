@@ -1,7 +1,7 @@
 CUSTOMERS_API_URL = 'http://localhost:8080/api/customers';
 POLICIES_API_URL = 'http://localhost:8080/api/policies';
 
-
+// LOAD POLICIES WITH EndOfDatePolicy maximum 14 days ON START, HOMEPAGE (INDEX.HTML)
 fetch(`${POLICIES_API_URL}`)
     .then(response => response.json())
     .then(policies => {
@@ -24,6 +24,7 @@ fetch(`${POLICIES_API_URL}`)
         document.getElementById('tablebody').innerHTML += out;
     })
 
+// SEARCH POLICIES WHEN YOU CLICK BUTTON WYSZUKAJ WITH ID SEARCH
 document.getElementById('search').addEventListener('click', (event) => {
         event.preventDefault();
         let criteria = document.getElementById('criteria').value;
@@ -39,11 +40,11 @@ document.getElementById('search').addEventListener('click', (event) => {
                         }
                     })
                     .then(policy => {
-                        document.getElementById('error').innerHTML = "XDD"
+
                         let out = '';
                         policy.forEach(policy => {
 
-                            out = `
+                            out += `
         <tr>
         <th onclick="location.href='profile.html?pesel=${policy.customer.pesel}' " >${policy.customer.pesel} </th>
         <th>${policy.customer.secondName}</th>
@@ -71,6 +72,33 @@ document.getElementById('search').addEventListener('click', (event) => {
     }
 )
 
+// FIND ALL POLICIES
+
+document.getElementById("findAllPolicies").addEventListener('click', (event) => {
+    event.preventDefault();
+    fetch(`${POLICIES_API_URL}/findAllPolicies`)
+        .then(response => response.json())
+        .then(policies => {
+            let out = '';
+            policies.forEach(policy => {
+
+                out += `
+        <tr>
+        <th onclick="location.href='profile.html?pesel=${policy.customer.pesel}' " >${policy.customer.pesel} </th>
+        <th>${policy.customer.secondName}</th>
+        <th onclick="location.href='${POLICIES_API_URL}/${policy.numberOfPolicy}' " >${policy.numberOfPolicy}</th>
+        <th>${policy.typeOfPolicy}</th>
+        <th>${policy.insuranceCompany}</th>
+        <th>${policy.dateOfStartPolicy}</th>
+        <th>${policy.dateOfEndPolicy}</th>
+
+
+        </tr>`
+            })
+            document.getElementById('tablebody').innerHTML = out;
+        })
+
+})
 
 
 
