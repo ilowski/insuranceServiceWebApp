@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.service.CustomerService;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void addCustomer(Customer customer) {
+
+
         customerRepository.save(customer);
     }
 
     @Transactional
     @Override
-    public boolean removeCustomer(long id) {
-        Customer customerToDelete = customerRepository.findById(id);
+    public boolean removeCustomer(String pesel) {
+        Customer customerToDelete = customerRepository.findByPesel(pesel);
         if (customerToDelete != null) {
-            customerRepository.deleteById(id);
+            customerRepository.deleteByPesel(pesel);
             return true;
         }
         return false;
@@ -92,10 +95,16 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findByCriteria(String criteria, String searchItem) {
         switch (criteria) {
+            case "Imie":
             case "firstName":
                 return customerRepository.findByFirstName(searchItem);
+            case "Nazwisko":
             case "secondName":
                 return customerRepository.findBySecondName(searchItem);
+            case "pesel":
+                List<Customer> customers = new ArrayList<>();
+                customers.add(findByPesel(searchItem));
+                return customers;
         }
         return new ArrayList<>();
     }
