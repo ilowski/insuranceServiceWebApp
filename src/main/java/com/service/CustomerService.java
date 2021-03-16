@@ -16,9 +16,10 @@ public interface CustomerService {
 
     List<Customer> findByCriteria(String criteria, String searchItem);
 
-    boolean removeCustomer(long id);
+    boolean removeCustomer(String pesel);
 
     boolean removeCustomerByPesel(String pesel);
+
 
     Boolean updateCustomer(Customer customer);
 
