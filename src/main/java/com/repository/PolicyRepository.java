@@ -26,7 +26,7 @@ public interface PolicyRepository extends JpaRepository<Policy, String> {
 
     List<Policy> findByDateOfEndPolicy(java.sql.Date dateOfEndPolicy);
 
-    @Query("select policy from Policy policy where datediff(policy.dateOfEndPolicy,curdate())<=14")
+    @Query("select policy from Policy policy where datediff(policy.dateOfEndPolicy,curdate())<=14 AND datediff(policy.dateOfEndPolicy,curdate())>= -7 ")
     List<Policy> findTwoWeeksPolicy();
 
 
