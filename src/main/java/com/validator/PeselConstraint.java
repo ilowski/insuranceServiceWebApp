@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PeselConstraint {
-    String message() default "jest już w bazie danych";
+    String message() default "pesel jest już w bazie danych";
 
     Class<?>[] groups() default {};
 
